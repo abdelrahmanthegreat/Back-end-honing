@@ -1,0 +1,26 @@
+Java Assignment - Student Grade Management System 
+Objective 
+Write a Java program to manage students' grades using the concepts learned so far. 
+Program Requirements 
+Assume there are 5 students and each student has grades in 3 subjects. 
+Step 1 
+Ask user to enter the names of the 5 students and their grades 
+Step 2 - Main Menu 
+Display the below menu: 
+1. Show All Students names. 
+2. Show all Students grades in each subject.  
+3. Search Student by name. 
+4. Count Passed Students 
+0. Exit 
+Input Validation 
+Grades must be between 0 and 100. If an invalid grade is entered, print 'Invalid grade.' and 
+ask again. 
+Bonus 
+• Display average for each subject. 
+• Display highest grade in each subject. 
+• Display letter grades (A-F). 
+• Grade >= 85 → A. 
+• Grade >= 75 → B. 
+• Grade >= 65 → C. 
+• Grade >= 50 → D. 
+• Otherwise → F. 
