@@ -1,0 +1,32 @@
+Java Assignment - Cinema Ticket Booking System
+Objective
+Write a Java program that simulates a simple cinema ticket booking system using functions,
+arrays, loops, and conditional statements.
+Program Requirements
+The cinema has 5 rows and 6 seats per row.
+Use:
+char[][] seats = new char[5][6];
+String[] movieNames = {"Superman","Avatar","Minecraft","Inside Out","F1"};
+Initially all seats contain 'O' (Available). Booked seats contain 'X'.
+User will enter seat number. Ex: 12 where “1” represents No. of row and “2” represents No.
+of column
+Main Menu
+1. Display Seats
+2. Book Seat
+3. Cancel Booking
+4. Show all movies.
+5. Show number of available and booked seats
+0. Exit
+
+Features
+• Display all.
+• Book a seat after validating row and seat numbers.
+• Cancel an existing booking.
+• Display booked seats, available seats.
+• Exit the program with a goodbye message.
+Input Validation
+Validate row numbers (1-5) and seat numbers (1-6). Display 'Invalid Seat.' for invalid input.
+Bonus Challenges
+• Take number of rows & columns that will represent the seats.
+• Take number of movies and their names.
+• Display 'Almost Full' when occupancy exceeds 80%.
