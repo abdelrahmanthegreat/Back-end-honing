@@ -1,0 +1,42 @@
+Java Assignment - Student Management System
+Objective
+Write a Java program that simulates a simple student management system using arrays, functions,
+classes, objects, constructors, loops, conditional statements, and switch-case.
+Program Requirements
+Create a class Student that stores the student's ID, name, and grade.
+Ask the user to enter N, where N represents the number of students.
+Create the array based on the entered value:
+Student[] students = new Student[n];
+Read the information for all students from the user.
+Main Menu
+1. Display Students
+2. Calculate Average Grade
+3. Find Highest Grade
+4. Search Student by ID
+0. Exit
+Features
+• Display all students with their grade status.
+Hint: Consider creating a method inside the Student class that displays the student's information
+instead of writing all the display code in the main method.
+Grade Status
+Grade ≥ 90 : Excellent
+Grade ≥ 75 : Very Good
+Grade ≥ 60 : Pass
+Otherwise : Fail
+• Search for a student using ID.
+• Calculate the average grade.
+• Find the student with the highest grade.
+Input Validation
+Validate that grades are between 0 and 100. If an ID is not found, display "Student not found."
+Bonus Challenges
+• Count passed students and failed students.
+• Sort students by grade.
+• Each student has two subjects instead of one.
+Store the two subject grades in an array of size 2 inside the Student class.
+The student's final grade should be calculated as the average of the two subject grades.
+Use the final grade when displaying the student's status, calculating the class average, and finding
+the highest-grade student.
+
+Note
+Design your program using object-oriented programming principles. Try to keep each class
+responsible for its own tasks.
