@@ -1,0 +1,113 @@
+Backend Java Spring | Week 11 | Oracle SQL | Assignment
+Assignment: “Nile Library” Management
+System
+
+Scenario: You are a new Backend Developer at a company building a system for a public
+library. Your job is to build the database from scratch on Oracle, fill it with data, and
+answer the library team’s requests.
+
+Submission: Deliver everything in a single .sql file, ordered exactly like the steps below,
+with a comment containing the step number above each one. Write a separate query for each
+request from the team.
+1 Create four tables with exactly these column names, in this order (the INSERT
+statements in the next step depend on them):
+CATEGORIES : category_id (number), category_name (text, required).
+MEMBERS : member_id (number), full_name (text, required), email , phone (text, not a
+number), city , joined_on (date, default: today), points (number, default: 0).
+BOOKS : book_id (number), title (text, required), author , category_id (number),
+price NUMBER(8,2) , copies_available (number), published_year (number).
+LOANS : loan_id (number), member_id (number), book_id (number), loaned_at
+(timestamp, default: now), status (text, default: 'ACTIVE' ).
+2 Fill the tables by running the INSERT statements in the file Nile_Library_Inserts.txt that
+came with this assignment (3 categories, 8 members, 10 books, 6 loans). Copy its content
+into your .sql file under this step. Read the data before you move on, because the
+requests later in this assignment are written around it.
+ADD_MONTHS(SYSDATE, -14) means “the date 14 months ago”.
+3 Run COMMIT , then add an isbn column to BOOKS and a returned_at column to LOANS .
+4 Return a book: change one loan's status to 'RETURNED' and set its returned_at . Then
+increase the price of every book in the Fiction category by 10%, and run COMMIT to save
+your work.
+5 Simulate a mistake: run DELETE FROM books without a WHERE clause and check the table,
+then run ROLLBACK and prove the data is back. In a comment, explain why the same
+mistake with TRUNCATE could not have been undone.
+
+1 / 3
+
+6 Delete one member who has never borrowed a book (check the LOANS table yourself
+first), then rename the LOANS table to BOOK_LOANS , and finally run COMMIT .
+
+Once the data is ready, the library team sends you the following requests. Write
+a separate query for each one:
+7 “We need to see all the member data.”
+8 “The mobile screen only needs the book title, author, and price.” Name the columns
+"Book Title" , "Author" , and "Price" .
+9 “Give us the list of cities where we have members, each city once.”
+10 “Show every book with its price including 14% VAT, rounded to two decimals.”
+11 “Members who live in Cairo.” Then rewrite it with 'cairo' and explain in a comment why
+the result changed.
+12 “Campaign books: priced above 300 and actually available in the library.”
+13 “Books priced from 100 to 500.” Watch the boundary: did the book priced at exactly 500
+show up?
+14 “Members from Cairo, Giza, or Alexandria.” Write it in two different ways, and say in a
+comment which one is cleaner.
+15 “Books whose title starts with A , and books whose title ends with y .”
+16 “Members with no phone number, since we cannot call them.” In a comment, explain why
+phone = NULL does not work.
+17 “A catalogue with the most expensive books first; if two prices tie, sort by title
+alphabetically.”
+18 “A contact sheet for members in Cairo and Giza who have a phone number, most points
+first, with column names an employee can understand.” Write it as a single query.
+19 “Build a greeting line for every member in this format: Ahmed Hassan — Cairo .” Then show
+the name in upper case together with its length, and then the part of the email before the
+@ .
+20 “Which members joined more than 6 months ago and still have fewer than 200 points?”
+
+2 / 3
+
+21 Predict without running. In a comment, write how many rows each of these queries
+will return, then run them and compare:
+SELECT * FROM members
+WHERE city = 'Cairo' OR city = 'Giza' AND points >= 100;
+SELECT * FROM members
+WHERE (city = 'Cairo' OR city = 'Giza') AND points >= 100;
+SELECT * FROM books WHERE price BETWEEN 500 AND 100;
+SELECT title, price * 1.14 AS price_vat
+FROM books WHERE price_vat > 500;
+If any of them fails with an error, write the error code and its cause.
+
+3 / 3
+
+-- Nile Library: data for the assignment
+-- ADD_MONTHS(SYSDATE, -14) means: the date 14 months ago
+
+INSERT INTO categories VALUES (1, 'Technology');
+INSERT INTO categories VALUES (2, 'Fiction');
+INSERT INTO categories VALUES (3, 'History');
+
+INSERT INTO members VALUES (1, 'Ahmed Hassan', 'ahmed.hassan@mail.com', '01012345678', 'Cairo', ADD_MONTHS(SYSDATE, -14), 250);
+INSERT INTO members VALUES (2, 'Mona Ali', 'mona.ali@mail.com', '01123456789', 'Cairo', ADD_MONTHS(SYSDATE, -9), 120);
+INSERT INTO members VALUES (3, 'Youssef Samir', 'youssef@gmail.com', '01234567890', 'Giza', ADD_MONTHS(SYSDATE, -3), 0);
+INSERT INTO members VALUES (4, 'Amira Tarek', 'amira@mail.com', '01098765432', 'Alexandria', ADD_MONTHS(SYSDATE, -20), 80);
+INSERT INTO members VALUES (5, 'Karim Nabil', 'karim@gmail.com', NULL, 'Cairo', ADD_MONTHS(SYSDATE, -7), 150);
+INSERT INTO members VALUES (6, 'Sara Mahmoud', 'sara@mail.com', '01155551234', 'Giza', ADD_MONTHS(SYSDATE, -2), 400);
+INSERT INTO members VALUES (7, 'Omar Fathy', 'omar@yahoo.com', '01277778888', 'Cairo', ADD_MONTHS(SYSDATE, -12), 95);
+INSERT INTO members VALUES (8, 'Laila Adel', 'laila@mail.com', '01066669999', 'Mansoura', ADD_MONTHS(SYSDATE, -1), 30);
+
+INSERT INTO books VALUES (1, 'Algorithms Made Simple', 'Omar Salem', 1, 450.00, 5, 2020);
+INSERT INTO books VALUES (2, 'Ancient Egypt', 'Hana Mostafa', 3, 320.00, 3, 2018);
+INSERT INTO books VALUES (3, 'Pocket SQL Guide', 'Nadia Fouad', 1, 85.00, 12, 2022);
+INSERT INTO books VALUES (4, 'Spring Boot in Action', 'Tarek Hegazy', 1, 500.00, 4, 2023);
+INSERT INTO books VALUES (5, 'Complete Oracle Reference', 'Mina Gerges', 1, 1250.00, 2, 2021);
+INSERT INTO books VALUES (6, 'The Desert Night', 'Laila Hamdy', 2, 150.00, 0, 2015);
+INSERT INTO books VALUES (7, 'Egyptian History', 'Hana Mostafa', 3, 280.00, 6, 2019);
+INSERT INTO books VALUES (8, 'City of Lights', NULL, 2, 199.99, 7, 2017);
+INSERT INTO books VALUES (9, 'Clean Code Basics', 'Youssef Anwar', 1, 600.00, 8, 2020);
+INSERT INTO books VALUES (10, 'The Last Pharaoh', 'Amr Zaki', 3, 100.00, 1, 2016);
+
+INSERT INTO loans (loan_id, member_id, book_id) VALUES (1, 1, 1);
+INSERT INTO loans (loan_id, member_id, book_id) VALUES (2, 2, 3);
+INSERT INTO loans (loan_id, member_id, book_id) VALUES (3, 3, 2);
+INSERT INTO loans (loan_id, member_id, book_id) VALUES (4, 1, 4);
+INSERT INTO loans (loan_id, member_id, book_id) VALUES (5, 6, 5);
+INSERT INTO loans (loan_id, member_id, book_id) VALUES (6, 7, 9);
+
