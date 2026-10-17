@@ -1,0 +1,143 @@
+DATABASE DESIGN &amp; SQL ASSIGNMENT
+
+Scenario: Gym Membership and Management System
+
+A gym wants a database to manage members, membership plans, memberships, trainers, fitness classes, class bookings,
+
+and payments. Each member has a unique ID, name, email, phone, join date, and city. A member may have multiple
+
+memberships over time, while a membership belongs to one member and uses one membership plan. Some members
+
+may not have any memberships.
+
+Each membership plan has a unique ID, name, duration in months, and price. A plan may be used by many memberships,
+
+while a plan may currently have no memberships. Each trainer has a unique ID, name, specialization, and hire date. A
+
+trainer may teach multiple fitness classes, while a class may have one assigned trainer or no assigned trainer yet.
+
+Each fitness class has a unique ID, name, capacity, and scheduled date/time. Members can book many classes, and each
+
+class can have many members; CLASS_BOOKING records this many-to-many relationship and stores the booking date
+
+and attendance status. Each membership may have no payment or multiple payments. Each payment belongs to one
+
+membership and records its date, amount, method, and status.
+
+Required entities and attributes
+
+Entity Attributes
+
+MEMBER member_id (PK), full_name, email, phone, join_date, city
+
+MEMBERSHIP_PLA
+
+N
+
+plan_id (PK), plan_name, duration_months, price
+
+MEMBERSHIP membership_id (PK), member_id (FK), plan_id (FK), start_date, end_date, membership_status
+
+TRAINER trainer_id (PK), full_name, specialization, hire_date
+
+FITNESS_CLASS class_id (PK), class_name, trainer_id (FK, nullable), capacity, scheduled_at
+
+CLASS_BOOKING booking_id (PK), member_id (FK), class_id (FK), booking_date, attendance_status
+
+PAYMENT payment_id (PK), membership_id (FK), payment_date, amount, payment_method, payment_status
+
+Part A — ERD Design
+
+1. Draw a complete ERD. Include all entities, attributes, primary keys, foreign keys, relationship names, and cardinalities.
+
+Resolve the many-to-many relationship between MEMBER and FITNESS_CLASS using CLASS_BOOKING.
+
+Part B — Database Implementation
+
+2. Create all tables using Oracle-compatible SQL. Choose suitable data types and define primary keys, foreign keys, and
+
+appropriate constraints. Include constraints for required fields and sensible values where appropriate.
+
+3. Insert realistic sample records into every table. Include members with no memberships, plans with no memberships,
+
+trainers with no classes, classes with no bookings, memberships with no payments, and different payment statuses.
+
+Part C — SQL Queries
+
+Write one SQL query for each question. Return only the columns needed and use clear aliases where useful.
+
+1. Membership details. Display each membership ID, member name, plan name, start date, and membership status.
+
+Include only memberships with matching member and plan records. Use INNER JOIN.
+
+2. Members and memberships. List every member and any membership they have. Members who have never had a
+
+membership must still appear. Use LEFT JOIN.
+
+3. Classes and bookings. List every fitness class and any booking made for it. Classes with no bookings must still
+
+appear. Write the query using RIGHT JOIN by arranging the tables appropriately.
+
+4. Trainers and classes. Display every trainer and the classes they teach, including trainers who have no classes. Use
+
+LEFT JOIN.
+
+Gym Membership &amp; SQL Assignment Page 2
+
+5. Plans summary. For each membership plan that has at least one membership, show the plan name, number of
+
+memberships, and average plan price. Sort by average plan price from highest to lowest.
+
+6. Member booking counts. Display every member's name and total number of class bookings, including members with
+
+zero bookings. Sort by booking count descending, then member name ascending.
+
+7. Successful revenue by plan. For each membership plan with successful payments, calculate the total revenue
+
+collected. Display the plan name and total revenue, sorted from highest to lowest.
+
+8. Class booking counts. Show each fitness class and its number of bookings, including classes with zero bookings. Sort
+
+from most booked to least booked.
+
+9. Membership status label. Display each membership ID and its status label using CASE: 'Active Membership' for
+
+Active, 'Expired Membership' for Expired, and 'Pending Membership' for Pending. Sort by membership ID.
+
+10. Member contact value. Display each member's name and a contact value: phone if available, otherwise email,
+
+otherwise 'No contact details'. Use NVL or an equivalent Oracle-compatible expression.
+
+11. Amount paid per membership. Display every membership ID and the total amount paid against it. Memberships with
+
+no payment records must show 0. Use NVL to handle a missing aggregate result.
+
+12. Trainer class totals. Display every trainer's name and the number of classes assigned to them, including trainers with
+
+zero classes. Sort by class count descending.
+
+13. Payment status label. Display payment ID, membership ID, payment method, amount, payment date, and a CASE
+
+label: 'Completed' for Successful, 'Pending' for Pending, and 'Not completed' for Failed. Sort by payment date newest
+
+first.
+
+14. Payment statistics. For each payment method, show the total amount, average amount, minimum amount, maximum
+
+amount, and number of payments.
+
+15. Members with multiple successful payments. Display each member's name, number of successful payments, and
+
+total amount paid from successful payments. Include only members with at least two successful payments, and sort by
+
+total amount paid descending.
+
+Submission Requirements
+
+Submit a single PDF containing your ERD, CREATE TABLE statements, INSERT statements, numbered SQL queries, and
+
+outputs or screenshots. Use Oracle-compatible SQL. The CREATE TABLE and INSERT scripts may be prepared
+
+separately while working, but include their contents in the final submitted PDF. The CLASS_BOOKING table resolves the
+
+many-to-many relationship between MEMBER and FITNESS_CLASS.
